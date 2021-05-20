@@ -18,7 +18,4 @@ const renderGoodsList = (list = []) => {
 
 renderGoodsList(goods);
 
-// решение методом reduce:
-// let renderGoodsList = renderGoodsItem.reduce(function(title = 'Title', price = 0, img = ''){
-//     return `<div class="goodsItem"><h3 class="catalogH3">${title}</h3><img src="${img}" class="catalogImg"><p class="catalogP">${price}</p></div>`
-// });
+
