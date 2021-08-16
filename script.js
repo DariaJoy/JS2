@@ -1,4 +1,3 @@
-
 const goods = [
     { title: 'Pencil & Paper Co. Take Note Pens, Set of 4', price: '$11.20', img: 'img/Note_Pens_Set_of_4.jpg' },
     { title: 'Golden Acrylic Scissors', price: '$22.00', img: 'img/Golden_Acrylic_Scissors.jpg' },
@@ -12,8 +11,9 @@ const renderGoodsItem = (title = 'Title', price = 0, img = '') => {
 };
 
 const renderGoodsList = (list = []) => {
-    let goodsList = list.map(item => renderGoodsItem(item.title, item.price, item.img));
-    document.querySelector('.goodsList').innerHTML = goodsList.join('');
+    let html = ''
+    list.map(item => html += renderGoodsItem(item.title, item.price, item.img));
+    document.querySelector('.goodsList').innerHTML = html
 }
 
 renderGoodsList(goods);
