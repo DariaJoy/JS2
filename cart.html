@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="script.js"></script>
+    <script defer src="cart.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
         integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
-    <title>eShop</title>
+    <title>Cart</title>
 </head>
-
-<body>
-    <header class="indexHeader">
-        <div class="headerWrap">
+<body>    
+    <header class="cartHeader">
+        <div class="wrap headerWrap">
             <nav class="mainMenu">
-                <h1 class="indexH1">Stationery</h1>
-                <a class="toCartBtn" href="cart.html"><i class="fas fa-cart-arrow-down"></i></a>
+                <h1 class="indexH1">Cart</h1>
+                <div class="headerBtns">
+                    <a class="toIndexBtn" href="index.html"><i class="fas fa-arrow-left"></i></a>
+                    <button class="cartBtn" type="button"><i class="far fa-trash-alt"></i>
+                    </div>                
             </nav>
         </div>
     </header>
     <main>
-        <section class="catalog">
-            <div class="goodsList"></div>
+        <section class="cart">
+            <div class="wrap cartList">
+            </div>
         </section>
     </main>
     <footer></footer>
 </body>
-
 </html>
