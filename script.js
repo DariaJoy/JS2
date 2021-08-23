@@ -8,7 +8,7 @@ const goods = [
 ];
 
 const renderGoodsItem = (title = 'Title', price = 0, img = '') => {
-    return `<div class="goodsItem"><h3 class="catalogH3">${title}</h3><img src="${img}" class="catalogImg"><p class="catalogP">${price}</p></div>`;
+    return `<div class="goodsItem"><a class="itemPage" href="#"><h3 class="catalogH3">${title}</h3><img src="${img}" class="catalogImg"><p class="catalogP">${price}</p></a><button class="itemBtn">Add to Basket</button></div>`;
 };
 
 const renderGoodsList = (list = []) => {
