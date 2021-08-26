@@ -42,7 +42,8 @@
 }
 
 .headerWrap {
-    width     : 100%;
+    margin    : 0 auto;
+    width     : 1140px;
     height    : 70px;
     box-shadow: 0px 5px 8px 0px rgba(34, 60, 80, 0.2);
 }
@@ -77,6 +78,8 @@
 }
 
 .goodsList {
+    width          : 1140px;
+    margin         : 0 auto;
     display        : flex;
     flex-wrap      : wrap;
     flex-direction : row;
@@ -84,14 +87,45 @@
 }
 
 .goodsItem {
+    transition    : 0.2s;
     display       : flex;
     flex-direction: column;
     align-items   : center;
     width         : 300px;
-    height        : 400px;
+    height        : 450px;
     padding       : 2%;
-    margin        : 10px;
+    margin        : 30px 15px;
     box-shadow    : 0px 0px 8px 2px rgba(34, 60, 80, 0.2);
+}
+
+.goodsItem:hover {
+    transform: scale(1.05);
+}
+
+.itemBtn {
+    color           : hotpink;
+    font-size       : 18px;
+    line-height     : 19.2px;
+    text-decoration : none;
+    text-align      : center;
+    background-color: transparent;
+    width           : 150px;
+    outline         : 1px solid hotpink;
+    border          : unset;
+    cursor          : pointer;
+    height          : 40px;
+    margin-top      : 10px;
+    transition      : 0.2s;
+}
+
+.itemBtn:hover {
+    background-color: hotpink;
+    color           : white;
+}
+
+.itemPage {
+    text-decoration: none;
+    text-align     : center;
 }
 
 .catalogH3 {
