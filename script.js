@@ -5,51 +5,63 @@ class GoodsList {
         this.container = container;
         this.goods = [];
         this.allGoods = [];
-        this.getGoods()
+        this._getGoods()
             .then(data => {
                 this.goods = [...data];
                 this.render()
             });
     }
 
-    getGoods() {
+    _getGoods() {
         return fetch(`${API}/catalogData.json`)
             .then(data => data.json())
+            .catch(error => {
+                console.log(error);
+            })
     }
-
+    calcSum() {
+        return this.allProducts.reduce((accum, item) => accum += item.price, 0);
+    }
     // render() {
     //     this.container.innerHTML = '';
     //     this.goods.forEach(good => {
     //         this.container.insertAdjacentHTML('beforeEnd', this.render(good));
     //     });
     // }
-
-
     render() {
-        let listHtml = '';
-        this.goods.forEach(good => {
-            const goodItem = new GoodsItem(good.title, good.price, good.img);
-            listHtml += goodItem.render();
-        });
-        document.querySelector('.goodsList').innerHTML = listHtml;
+        const block = document.querySelector(this.container);
+        for (let good of this.goods) {
+            const goodItem = new GoodsItem(good);
+            this.allGoods.push(goodItem);
+            block.insertAdjacentHTML('beforeend', goodItem.render());
+        }
     }
+    // render() {
+    //     let listHtml = '';
+    //     this.goods.forEach(good => {
+    //         const goodItem = new GoodsItem(good.title, good.price, good.img);
+    //         listHtml += goodItem.render();
+    //     });
+    //     document.querySelector('.goodsList').innerHTML = listHtml;
+    // }
 
-    getPrice() {
-        let s = 0;
-        this.goods.forEach(good => {
-            s += good.price;
-        })
-    }
+    // getPrice() {
+    //     let s = 0;
+    //     this.goods.forEach(good => {
+    //         s += good.price;
+    //     })
+    // }
 };
 
 class GoodsItem {
-    constructor(title, price, img) {
-        this.title = title;
-        this.price = price;
+    constructor(product, img = 'https://images.unsplash.com/photo-1518715159541-e12050b5dd1e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80') {
+        this.title = product.product_name;
+        this.price = product.price;
+        this.id = product.id_product;
         this.img = img;
     }
     render() {
-        return `<div class="goodsItem">
+        return `<div class="goodsItem" data-id="${this.id}>
         <a class="itemPage" href="#">
         <h3 class="catalogH3">${this.title}</h3>
         <img src="${this.img}" class="catalogImg">
@@ -65,29 +77,38 @@ class Cart {
     constructor(container = '.cartList') {
         this.container = container;
         this.goods = [];
-        this.hoverCart();
-        this.getCartItem()
+        this._clickCart();
+        this._getCartItem()
             .then(data => {
                 this.goods = [...data.contents];
                 this.render()
             });
     }
 
-    getCartItem() {
+    _getCartItem() {
         return fetch(`${API}/getBasket.json`)
             .then(data => data.json())
+            .catch(error => {
+                console.log(error);
+            })
     }
-
     render() {
-        let listHtml = '';
-        this.goods.forEach(product => {
-            const cartItem = new CartItem(product.title, product.price, product.img);
-            listHtml += cartItem.render();
-        });
-        document.querySelector('.cartList').innerHTML = listHtml;
+        const block = document.querySelector(this.container);
+        for (let product of this.goods) {
+            const cartItem = new CartItem();
+            block.insertAdjacentHTML('beforeend', cartItem.render(product));
+        }
     }
+    // render() {
+    //     let listHtml = '';
+    //     this.goods.forEach(product => {
+    //         const cartItem = new CartItem(product.title, product.price, product.img);
+    //         listHtml += cartItem.render();
+    //     });
+    //     document.querySelector('.cartList').innerHTML = listHtml;
+    // }
 
-    hoverCart() {
+    _clickCart() {
         document.querySelector('.toCartBtn').addEventListener('click', () => {
             document.querySelector(this.container).classList.toggle('invisible');
         });
@@ -95,13 +116,13 @@ class Cart {
 }
 
 class CartItem {
-    render(good) {
-        return `<div class="cartItem">
-        <div class="titleCart"><h3 class="catalogH3">${this.title}</h3>
-        <img src="${this.img}" class="catalogImg"></div>
+    render(product, img = 'https://images.unsplash.com/photo-1577138043155-7934dd897541?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80') {
+        return `<div class="cartItem" data-id="${product.id_product}>
+        <div class="titleCart"><h3 class="catalogH3">${product.product_name}</h3>
+        <img src="${img}" class="catalogImg"></div>
         <div class="titleCart">
-        <p class="catalogP">$ ${this.price}</p>
-        <p class="productQuantity">Quantity: ${this.quantity}</p></div>
+        <p class="catalogP">$ ${product.price}</p>
+        <p class="productQuantity">Quantity: ${product.quantity}</p></div>
         <button class="cartListBtn" onclick="deliteOne"()">
         <i class="fas fa-times"></i></button>
         </div>`
