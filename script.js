@@ -1,4 +1,3 @@
-
 const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
 class GoodsList {
@@ -8,15 +7,22 @@ class GoodsList {
         this.allGoods = [];
         this.getGoods()
             .then(data => {
-                this.goods = data;
+                this.goods = [...data];
                 this.render()
             });
     }
 
-    async getGoods() {
-        const result = await fetch(`${API}/catalogData.json`);
-        return await result.json();
+    getGoods() {
+        return fetch(`${API}/catalogData.json`)
+            .then(data => data.json())
     }
+
+    // render() {
+    //     this.container.innerHTML = '';
+    //     this.goods.forEach(good => {
+    //         this.container.insertAdjacentHTML('beforeEnd', this.render(good));
+    //     });
+    // }
 
 
     render() {
@@ -28,12 +34,12 @@ class GoodsList {
         document.querySelector('.goodsList').innerHTML = listHtml;
     }
 
-    // getPrice() {
-    //     let s = 0;
-    //     this.goods.forEach(item => {
-    //         s += item.price;
-    //     })
-    // }
+    getPrice() {
+        let s = 0;
+        this.goods.forEach(good => {
+            s += good.price;
+        })
+    }
 };
 
 class GoodsItem {
@@ -53,6 +59,8 @@ class GoodsItem {
     }
 };
 
+let list = new GoodsList();
+
 class Cart {
     constructor(container = '.cartList') {
         this.container = container;
@@ -60,45 +68,48 @@ class Cart {
         this.hoverCart();
         this.getCartItem()
             .then(data => {
-                this.goods = data;
+                this.goods = [...data.contents];
                 this.render()
             });
     }
 
-    async getCartItem() {
-        const result = await fetch(`${API}/getBasket.json`);
-        return await result.json();
+    getCartItem() {
+        return fetch(`${API}/getBasket.json`)
+            .then(data => data.json())
     }
 
     render() {
         let listHtml = '';
-        this.goods.forEach(good => {
-            const goodItem = new GoodsItem(good.title, good.price, good.img);
-            listHtml += goodItem.render();
+        this.goods.forEach(product => {
+            const cartItem = new CartItem(product.title, product.price, product.img);
+            listHtml += cartItem.render();
         });
-        document.querySelector('.goodsList').innerHTML = listHtml;
+        document.querySelector('.cartList').innerHTML = listHtml;
     }
 
     hoverCart() {
-        document.querySelector('.toCartBtn').addEventListener('hover', () => {
+        document.querySelector('.toCartBtn').addEventListener('click', () => {
             document.querySelector(this.container).classList.toggle('invisible');
         });
     }
 }
 
 class CartItem {
-    render() {
+    render(good) {
         return `<div class="cartItem">
-        <h3 class="catalogH3">${this.title}</h3>
-        <img src="${this.img}" class="catalogImg">
-        <p class="catalogP">$ ${this.price}</p></a>
-        <button class="cartListBtn" onclick="deliteOne"()"><i class="fas fa-times"></i></button>
-           </div>`
+        <div class="titleCart"><h3 class="catalogH3">${this.title}</h3>
+        <img src="${this.img}" class="catalogImg"></div>
+        <div class="titleCart">
+        <p class="catalogP">$ ${this.price}</p>
+        <p class="productQuantity">Quantity: ${this.quantity}</p></div>
+        <button class="cartListBtn" onclick="deliteOne"()">
+        <i class="fas fa-times"></i></button>
+        </div>`
     }
 }
 
-let list = new GoodsList();
-list.render();
+
+let cart = new Cart
 
 //Домашнее задание №2
 // class GoodsList {
