@@ -117,14 +117,16 @@ class Cart {
 
 class CartItem {
     render(product, img = 'https://images.unsplash.com/photo-1577138043155-7934dd897541?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80') {
-        return `<div class="cartItem" data-id="${product.id_product}>
-        <div class="titleCart"><h3 class="catalogH3">${product.product_name}</h3>
-        <img src="${img}" class="catalogImg"></div>
+        return `<div class="cartContent">
+        <div class="cartItem" data-id="${product.id_product}>
+        <div class="titleCart"><h3 class="cartH3">${product.product_name}</h3>
+        <img src="${img}" class="cartImg"></div>
         <div class="titleCart">
         <p class="catalogP">$ ${product.price}</p>
         <p class="productQuantity">Quantity: ${product.quantity}</p></div>
         <button class="cartListBtn" onclick="deliteOne"()">
         <i class="fas fa-times"></i></button>
+        </div>
         </div>`
     }
 }
