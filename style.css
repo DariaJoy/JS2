@@ -101,6 +101,7 @@
     text-align      : center;
     box-shadow      : 0 0 5px rgba(0, 0, 0, 0.62);
     align-self      : center;
+    cursor          : pointer;
 }
 
 .cartListBtn:hover {
