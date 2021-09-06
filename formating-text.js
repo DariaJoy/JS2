@@ -1,8 +1,8 @@
 
 
-let block = document.getElementsByClassName('text');
-document.getElementsByClassName('formating').addEventListener('click', () => {
-    block.textContent = block.textContent.replace(/\B'|'\B/g, '"');
+let block = document.getElementsById('text')
+document.getElementById('formatting').addEventListener('click', () => {
+    block.textContent = block.textContent.formatting(/\B'|'\B/g, '"');
 });
 
 
