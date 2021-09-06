@@ -1,5 +1,8 @@
 const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
+
+
+
 class GoodsList {
     constructor(container = '.goodsList') {
         this.container = container;
