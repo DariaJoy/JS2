@@ -20,7 +20,7 @@
         <header class="indexHeader">
             <div class="headerWrap">
                 <nav class="mainMenu">
-                    <h1 class="indexH1">Stationery</h1>
+                    <h1 class="indexH1">computer hardware</h1>
                     <div class="mainMenuDiv">
                         <form action="#" class="searchForm" @submit.prevent="filter">
                             <input type="text" class="searchField" v-model="userSearch">
@@ -29,19 +29,52 @@
                             </button>
                         </form>
                         <div class="cart">
-                            <button class="toCartBtn" href="cart.html"><i class="fas fa-cart-arrow-down"></i></button>
-                            <div class="cartList invisible"></div>
+                            <button class="toCartBtn" @click="showCart = !showCart"><i
+                                    class="fas fa-cart-arrow-down"></i></button>
+                            <div class="cartList" v-show="showCart">
+                                <p v-if="!cartItems.length">Cart is empty</p>
+                                <div class="cartItem" v-for="item of cartItems" :key="item.id_product">
+                                    <div class="titleCart">
+                                        <h3 class="cartH3">{{ item.product_name }}</h3>
+                                        <img class="cartImg" :src="imgCart" alt="">
+                                    </div>
+                                    <div class="titleCart">
+                                        <p class="cartP">$ {{ item.price }} </p>
+                                        <p class="productQuantity">Quantity: {{ item.quantity }}</p>
+
+                                    </div>
+                                    <button class="cartListBtn" @click="remove(item)">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <div class="product-price">{{item.quantity*item.price}}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </nav>
             </div>
+            </nav>
+
         </header>
         <main>
             <section class="catalog">
-                <div class="goodsList"></div>
+
+                <div class="products">
+                    <div class="product-item" v-for="product of filtered" :key="product.id_product">
+                        <div class="goodsItem">
+                            <img :src="imgProduct" class="catalogImg" calt="itemImage">
+                            <h3 class="catalogH3">{{product.product_name}}</h3>
+                            <p class="catalogP">{{product.price}}</p>
+                            <button class="itemBtn" @click="addProduct(product)">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
             </section>
         </main>
         <footer></footer>
+    </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </body>
