@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="script.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&display=swap"
@@ -28,29 +27,7 @@
                                 <i class="fas fa-search"></i>
                             </button>
                         </form>
-                        <div class="cart">
-                            <button class="toCartBtn" @click="showCart = !showCart"><i
-                                    class="fas fa-cart-arrow-down"></i></button>
-                            <div class="cartList" v-show="showCart">
-                                <p v-if="!cartItems.length">Cart is empty</p>
-                                <div class="cartItem" v-for="item of cartItems" :key="item.id_product">
-                                    <div class="titleCart">
-                                        <h3 class="cartH3">{{ item.product_name }}</h3>
-                                        <img class="cartImg" :src="imgCart" alt="">
-                                    </div>
-                                    <div class="titleCart">
-                                        <p class="cartP">$ {{ item.price }} </p>
-                                        <p class="productQuantity">Quantity: {{ item.quantity }}</p>
-
-                                    </div>
-                                    <button class="cartListBtn" @click="remove(item)">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                    <div class="product-price">{{item.quantity*item.price}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div ref="cart"></div>
                     </div>
                 </nav>
             </div>
@@ -59,24 +36,18 @@
         </header>
         <main>
             <section class="catalog">
-
                 <div class="products">
-                    <div class="product-item" v-for="product of filtered" :key="product.id_product">
-                        <div class="goodsItem">
-                            <img :src="imgProduct" class="catalogImg" calt="itemImage">
-                            <h3 class="catalogH3">{{product.product_name}}</h3>
-                            <p class="catalogP">{{product.price}}</p>
-                            <button class="itemBtn" @click="addProduct(product)">Add to Cart</button>
-                        </div>
-                    </div>
+                    <products ref="products"></products>
                 </div>
-
             </section>
         </main>
         <footer></footer>
     </div>
-    </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/cartComp.js"></script>
+    <script src="js/searchComp.js"></script>
+    <script src="js/productComp.js"></script>
+    <script defer src="js/main.js"></script>
 </body>
 
 </html>
