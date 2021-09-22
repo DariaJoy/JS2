@@ -3,77 +3,21 @@ const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-a
 const app = new Vue({
     el: '#app',
     data: {
-        userSearch: '',
         showCart: false,
         catalogUrl: '/catalogData.json',
-        cartUrl: '/getBasket.json',
-        cartItems: [],
         filtered: [],
-        imgCart: 'https://images.unsplash.com/photo-1577138043155-7934dd897541?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
         catalogProducts: [],
         imgProduct: 'https://images.unsplash.com/photo-1518715159541-e12050b5dd1e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
     },
+    components: { cart, products, searchFilter },
     methods: {
         getJson(url) {
             return fetch(url)
                 .then(result => result.json())
                 .catch(error => console.log(error))
-        },
-        addProduct(item) {
-            this.getJson(`${API}/addToBasket.json`)
-                .then(data => {
-                    if (data.result === 1) {
-                        let find = this.cartItems.find(el => el.id_product === item.id_product);
-                        if (find) {
-                            find.quantity++;
-                        } else {
-                            const prod = Object.assign({ quantity: 1 }, item);//создание нового объекта на основе двух, указанных в параметрах
-                            this.cartItems.push(prod)
-                        }
-                    }
-                })
-        },
-        remove(item) {
-            this.getJson(`${API}/addToBasket.json`)
-                .then(data => {
-                    if (data.result === 1) {
-                        if (item.quantity > 1) {
-                            item.quantity--;
-                        } else {
-                            this.cartItems.splice(this.cartItems.indexOf(item), 1);
-                        }
-                    }
-                })
-        },
-        filter() {
-            let regexp = new RegExp(this.userSearch, 'i');
-            this.filtered = this.catalogProducts.filter(el => regexp.test(el.product_name));
         }
     },
-    mounted() {
-        this.getJson(`${API + this.cartUrl}`)
-            .then(data => {
-                for (let item of data.contents) {
-                    this.cartItems.push(item);
-                }
-            });
-        this.getJson(`${API + this.catalogUrl}`)
-            .then(data => {
-                for (let item of data) {
-                    this.$data.catalogProducts.push(item);
-                    this.$data.filtered.push(item);
-                }
-            });
-        this.getJson(`getProducts.json`)
-            .then(data => {
-                for (let item of data) {
-                    this.catalogProducts.push(item);
-                    this.filtered.push(item);
-                }
-            })
-    }
-
-});
+})
 
 
 // Задание 3
